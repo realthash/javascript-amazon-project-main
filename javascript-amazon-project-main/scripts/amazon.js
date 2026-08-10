@@ -63,8 +63,6 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
     cart.forEach((item) => {
       if (item.productId === itemId) {
         matchingItem = item
-
-
       }
 
     })
@@ -76,6 +74,13 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
         quantity: 1
       })
     }
-    console.log(cart)
+    let cartTotalQuantity = 0
+
+    cart.forEach((item) => {
+      cartTotalQuantity += item.quantity
+    })
+
+    document.querySelector('.js-cart-quantity').innerHTML = cartTotalQuantity
+
   })
 })
