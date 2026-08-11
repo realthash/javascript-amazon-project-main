@@ -4,6 +4,8 @@ import { formatCurrency } from '../scripts/utils/price.js'
 
 let productsHTML = ''
 
+
+
 cart.forEach((cartItem) => {
 
 
