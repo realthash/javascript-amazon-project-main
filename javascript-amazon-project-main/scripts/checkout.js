@@ -1,10 +1,10 @@
 import { cart, removeCartItem } from "../data/cart.js"
 import { products } from "../data/products.js"
-import { formatCurrency } from '../scripts/utils/price.js'
+import { formatCurrency } from './utils/price.js'
 
 let productsHTML = ''
 
-
+updateCheckoutItem()
 
 cart.forEach((cartItem) => {
 
@@ -39,7 +39,7 @@ cart.forEach((cartItem) => {
                 <span>
                   Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                 </span>
-                <span class="update-quantity-link link-primary">
+                <span class="update-quantity-link link-primary js-update-quantity-link" data-update-item-id="${matchingItem.id}">
                   Update
                 </span>
                 <span class="delete-quantity-link link-primary js-delete-quantity-link" data-delete-id="${cartItem.productId}">
@@ -94,10 +94,12 @@ cart.forEach((cartItem) => {
 
 })
 
+//generating the cart item container
 document.querySelector('.js-order-summary').innerHTML = productsHTML;
 
 console.log(cart)
 
+//delete the cart items
 document.querySelectorAll('.js-delete-quantity-link').forEach((element) => {
   element.addEventListener('click', () => {
 
@@ -109,6 +111,29 @@ document.querySelectorAll('.js-delete-quantity-link').forEach((element) => {
     console.log(container)
 
     console.log(cart)
+
+    //update the chekout count after deletion
+    updateCheckoutItem()
   })
 })
 
+//function to update the checkout items top of the checkout page
+function updateCheckoutItem() {
+  let countQuantity = 0
+  cart.forEach((cartItem) => {
+    countQuantity += cartItem.quantity
+  })
+
+  document.querySelector('.js-return-home-link').innerHTML = countQuantity > 1 ? `${countQuantity} items` : `${countQuantity} item`
+}
+
+//udpate button
+// document.querySelectorAll('.js-update-quantity-link').forEach((element) => {
+//   element.addEventListener('click', () => {
+//     const productId = element.dataset.updateItemId
+
+//     document.querySelector(`.`).innerHTML = `hi
+//     `
+
+//   })
+// })
