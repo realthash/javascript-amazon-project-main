@@ -143,7 +143,7 @@ document.querySelectorAll('.js-update-quantity-link').forEach((element) => {
   })
 })
 
-
+//save the quantity and update the item elements and updating the cart with the new quantity
 document.querySelectorAll('.item-save-link').forEach((element) => {
   element.addEventListener('click', () => {
     const productId = element.dataset.saveLink
@@ -160,12 +160,10 @@ document.querySelectorAll('.item-save-link').forEach((element) => {
           console.log(cartItem.quantity)
           container.classList.remove('is-editable')
 
+          //update the quantity label
           document.querySelector(`.js-quantity-label-${productId}`).innerHTML = cartItem.quantity
         }
-
       })
-
-      
     }
     updateCheckoutItem()
     saveToStorage()
