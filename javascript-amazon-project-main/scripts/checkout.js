@@ -1,4 +1,4 @@
-import { cart, removeCartItem } from "../data/cart.js"
+import { cart, removeCartItem, saveToStorage } from "../data/cart.js"
 import { products } from "../data/products.js"
 import { formatCurrency } from './utils/price.js'
 
@@ -138,30 +138,36 @@ document.querySelectorAll('.js-update-quantity-link').forEach((element) => {
 
     console.log(productId)
     document.querySelector(`.js-cart-item-container-${productId}`).classList.add('is-editable')
-    updateCartItemQuantity()
+
 
   })
 })
-function updateCartItemQuantity() {
-  document.querySelectorAll('.item-save-link').forEach((element) => {
-    element.addEventListener('click', () => {
-      const productId = element.dataset.saveLink
-      const container = document.querySelector(`.js-cart-item-container-${productId}`)
 
-      const inputValue = document.querySelector(`.js-item-input-${productId}`).value
-      const value = Number(inputValue)
 
-      if (value < 1000 && value > 0) {
-        cart.forEach((cartItem) => {
-          if (cartItem.productId === productId) {
-            console.log(cartItem.quantity)
-            cartItem.quantity = value
-            console.log(cartItem.quantity)
-            container.classList.remove('is-editable')
-          }
-        })
-        updateCheckoutItem()
-      }
-    })
+document.querySelectorAll('.item-save-link').forEach((element) => {
+  element.addEventListener('click', () => {
+    const productId = element.dataset.saveLink
+    const container = document.querySelector(`.js-cart-item-container-${productId}`)
+
+    const inputValue = document.querySelector(`.js-item-input-${productId}`).value
+    const value = Number(inputValue)
+
+    if (value < 1000 && value > 0) {
+      cart.forEach((cartItem) => {
+        if (cartItem.productId === productId) {
+          console.log(cartItem.quantity)
+          cartItem.quantity = value
+          console.log(cartItem.quantity)
+          container.classList.remove('is-editable')
+
+          document.querySelector(`.js-quantity-label-${productId}`).innerHTML = cartItem.quantity
+        }
+
+      })
+
+      
+    }
+    updateCheckoutItem()
+    saveToStorage()
   })
-}
+})
