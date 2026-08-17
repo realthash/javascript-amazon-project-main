@@ -1,11 +1,11 @@
-import { cart, removeCartItem, saveToStorage, updateDeliveryOption } from "../../data/cart.js"
+import { cart, removeCartItem, saveToStorage, updateDeliveryOption } from '../../data/cart.js'
 import { deliveryOptions } from "../../data/deliveryOptions.js"
 import { products } from "../../data/products.js"
 import { formatCurrency } from '../utils/price.js'
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'
 
 
-export default function renderPage() {
+export function renderOrderSummary() {
     let productsHTML = ''
 
     updateCheckoutItem()
@@ -158,7 +158,7 @@ export default function renderPage() {
             updateDeliveryOption(itemId, deliveryOptionId)
 
             // updateDeliveryDate(itemId, deliveryOptionId)
-            renderPage()
+            renderOrderSummary()
         })
     })
 
@@ -220,3 +220,4 @@ function updateDeliveryDate(itemId, deliveryOptionId) {
 }
 
 
+renderOrderSummary()

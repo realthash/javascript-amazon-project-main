@@ -1,3 +1,3 @@
-import renderPage from "./checkout/orderSummary";
+import { renderOrderSummary } from "./checkout/orderSummary.js";
 
-renderPage()
+renderOrderSummary()
