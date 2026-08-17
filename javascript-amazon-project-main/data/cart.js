@@ -11,9 +11,9 @@ export function saveToStorage() {
 export function addtoCart(itemId) {
     let matchingItem;
 
-    cart.forEach((item) => {
-        if (item.productId === itemId) {
-            matchingItem = item
+    cart.forEach((cartitem) => {
+        if (cartitem.productId === itemId) {
+            matchingItem = cartitem
         }
 
     })
@@ -41,4 +41,20 @@ export function removeCartItem(cartItemId) {
     })
     cart = newCart
     saveToStorage()
+}
+
+export function updateDeliveryOption(itemId, deliveryOptionId) {
+
+    let matchingItem;
+
+    cart.forEach((cartitem) => {
+        if (cartitem.productId === itemId) {
+            matchingItem = cartitem
+        }
+    })
+
+    matchingItem.deliveryOptionId = deliveryOptionId;
+
+    saveToStorage()
+
 }

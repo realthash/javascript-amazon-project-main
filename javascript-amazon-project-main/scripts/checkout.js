@@ -1,4 +1,4 @@
-import { cart, removeCartItem, saveToStorage } from "../data/cart.js"
+import { cart, removeCartItem, saveToStorage, updateDeliveryOption } from "../data/cart.js"
 import { deliveryOptions } from "../data/deliveryOptions.js"
 import { products } from "../data/products.js"
 import { formatCurrency } from './utils/price.js'
@@ -22,7 +22,7 @@ cart.forEach((cartItem) => {
 
     }
 
-    
+
     let deliveryOption;
     deliveryOptions.forEach((option) => {
       if (cartItem.deliveryOptionId === option.id) {
@@ -33,13 +33,13 @@ cart.forEach((cartItem) => {
     const deliveryDate = now.add(deliveryOption.deliveryDays, 'day')
     const formatedDate = deliveryDate.format('dddd, D MMMM')
 
-    
+
 
     if (matchingItem) {
 
       productsHTML += `
       <div class="cart-item-container js-cart-item-container-${matchingItem.id}">
-          <div class="delivery-date">
+          <div class="delivery-date js-delivery-date-${matchingItem.id}">
             Delivery date: ${formatedDate}
           </div>
 
@@ -172,7 +172,7 @@ function generateDeliveryDateHTML(matchingItem, cartItem) {
 
     html += `
     <div class="delivery-option">
-      <input type="radio" class="delivery-option-input" name="delivery-option-${matchingItem.id}" ${isChecked ? 'checked' : ''}>
+      <input type="radio" class="delivery-option-input js-delivery-option" name="delivery-option-${matchingItem.id}" ${isChecked ? 'checked' : ''} data-item-id="${matchingItem.id}" data-delivery-option-id="${deliveryOption.id}">
       <div>
         <div class="delivery-option-date">
           ${formatedDate}
@@ -188,3 +188,29 @@ function generateDeliveryDateHTML(matchingItem, cartItem) {
   return html
 }
 
+document.querySelectorAll('.js-delivery-option').forEach((element) => {
+  element.addEventListener('click', () => {
+
+    const itemId = element.dataset.itemId
+    const deliveryOptionId = element.dataset.deliveryOptionId
+    console.log(itemId)
+    console.log(deliveryOptionId)
+    updateDeliveryOption(itemId, deliveryOptionId)
+
+    updateDeliveryDate(itemId, deliveryOptionId)
+
+  })
+})
+
+function updateDeliveryDate(itemId, deliveryOptionId) {
+
+  deliveryOptions.forEach((deliveryOption) => {
+    if (deliveryOption.id === deliveryOptionId) {
+      const now = dayjs()
+      const deliveryDate = now.add(deliveryOption.deliveryDays, 'day')
+      const formatedDate = deliveryDate.format('dddd, D MMMM')
+
+      document.querySelector(`.js-delivery-date-${itemId}`).innerHTML = `Delivery date: ${formatedDate}`
+    }
+  })
+}
