@@ -731,3 +731,29 @@ export function returnMatchingProduct(productId) {
   })
   return matchingItem
 }
+
+/*
+
+console.log(this)
+
+const object1 = {
+  method() {
+    console.log(this)
+  }
+}
+object1.method()
+
+const object2 = {
+  name: 'thash',
+  method: () => {
+    console.log(this)
+  },
+
+  // numbers: [1, 2, 4].forEach(() => {
+  //   console.log(this)
+  // })
+}
+object2.method()
+object1.method.call('hello')
+
+*/
