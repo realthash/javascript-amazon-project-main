@@ -77,7 +77,7 @@ export function renderOrderSummary() {
   //generating the cart item container
   document.querySelector('.js-order-summary').innerHTML = productsHTML;
 
-  console.log(cart.cartItems)
+
 
   //delete the cart items
   document.querySelectorAll('.js-delete-quantity-link').forEach((element) => {
