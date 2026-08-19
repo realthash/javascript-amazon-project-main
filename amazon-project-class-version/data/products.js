@@ -32,7 +32,7 @@ class Clothing extends Product {
     `;
   }
 }
-
+/*
 const tshirt = new Clothing({
   id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
   image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
@@ -52,7 +52,7 @@ const tshirt = new Clothing({
 })
 
 console.log(tshirt)
-
+*/
 export let products = []
 
 
@@ -66,6 +66,7 @@ export function loadProducts(fun) {
       }
       return new Product(product)
     });
+    // console.log(products)
     console.log('load products')
     fun()
   })
@@ -741,7 +742,7 @@ export const products = [
 });
 */
 
-console.log(products)
+// console.log(products)
 
 export function returnMatchingProduct(productId) {
   let matchingItem = ''
